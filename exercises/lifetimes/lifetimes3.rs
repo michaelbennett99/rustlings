@@ -5,11 +5,17 @@
 // Execute `rustlings hint lifetimes3` or use the `hint` watch subcommand for a
 // hint.
 
-// I AM NOT DONE
+use std::fmt;
 
-struct Book {
-    author: &str,
-    title: &str,
+struct Book<'a> {
+    author: &'a str,
+    title: &'a str,
+}
+
+impl<'a> fmt::Display for Book<'a> {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        write!(f, "{} by {}", self.title, self.author)
+    }
 }
 
 fn main() {
@@ -17,5 +23,5 @@ fn main() {
     let title = String::from("Fish Flying");
     let book = Book { author: &name, title: &title };
 
-    println!("{} by {}", book.title, book.author);
+    println!("{}", book);
 }
